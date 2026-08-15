@@ -4,7 +4,7 @@
   "description": "",
   "type": "commonjs",
   "scripts": {
-    "start": "parcel src/index.html -p 3000",
+    "start": "parcel src/index.html -p 8000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -12,6 +12,7 @@
     "process": "^0.11.10"
   },
   "dependencies": {
-    "phaser": "^4.2.1"
+    "phaser": "^4.2.1",
+    "webfontloader": "^1.6.28"
   }
 }

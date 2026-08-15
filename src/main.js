@@ -1,6 +1,7 @@
 
 import phaser from "phaser"
-import TitleScreen from "../Scenes/TitleScreen"
+import TitleScreen from "./Scenes/TitleScreen"
+import Game from "./Scenes/game";
 
 const config = {
   type: Phaser.AUTO,
@@ -22,6 +23,7 @@ const config = {
 }
 
 const game = new phaser.Game(config);
-game.scene.add('title-screen', TitleScreen)
-game.scene.start('title-screen');
-
+game.scene.add('title-screen', TitleScreen);
+game.scene.add('game', Game);
+//game.scene.start('title-screen');
+game.scene.start('game')
