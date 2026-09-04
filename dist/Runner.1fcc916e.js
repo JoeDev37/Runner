@@ -207,11 +207,11 @@
       });
     }
   }
-})({"js4oD":[function(require,module,exports,__globalThis) {
+})({"6zReE":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
-var HMR_SERVER_PORT = 8000;
+var HMR_SERVER_PORT = 3000;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "439701173a9199ea";
 var HMR_USE_SSE = false;
@@ -742,7 +742,7 @@ const config = {
 const game = new (0, _phaserDefault.default).Game(config);
 game.scene.add('title-screen', (0, _titleScreenDefault.default));
 game.scene.add('game', (0, _gameDefault.default));
-//game.scene.start('title-screen');
+// game.scene.start('title-screen');
 game.scene.start('game');
 
 },{"phaser":"9nmdg","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./Scenes/TitleScreen":"il8LS","./Scenes/game":"3bPee"}],"9nmdg":[function(require,module,exports,__globalThis) {
@@ -195295,24 +195295,25 @@ class Game extends (0, _phaserDefault.default).Scene {
         const width = this.scale.width;
         const height = this.scale.height;
         const MC_Color = "0xcba6f7";
-        this.MC = this.add.rectangle(width / 2, height / 1.05, 50, 50, MC_Color);
+        this.MC = this.add.rectangle(width / 2, height - 50, 50, 50, MC_Color);
         this.physics.add.existing(this.MC);
-        this.MC.body.setCollideWorldBounds(true, 1, 1);
+        const body = this.MC.body;
+        body.setCollideWorldBounds(true);
+        body.setGravityY(500);
         this.cursors = this.input.keyboard.createCursorKeys();
     }
     update() {
         const body = this.MC.body;
-        if (this.cursors.right.isDown) {
-            this.MC.x += 10;
-            body.updateFromGameObject();
-        } else if (this.cursors.left.isDown) {
-            this.MC.x -= 10;
-            body.updateFromGameObject();
-        }
+        // Movement
+        if (this.cursors.right.isDown) body.setVelocityX(400);
+        else if (this.cursors.left.isDown) body.setVelocityX(-400);
+        else body.setVelocityX(0);
+        // Jump
+        if ((0, _phaserDefault.default).Input.Keyboard.JustDown(this.cursors.up) && body.blocked.down) body.setVelocityY(-300);
     }
 }
 exports.default = Game;
 
-},{"phaser":"9nmdg","./FontLoader":"yvWDN","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["js4oD","fILKw"], "fILKw", "parcelRequire1cc7", {})
+},{"phaser":"9nmdg","./FontLoader":"yvWDN","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["6zReE","fILKw"], "fILKw", "parcelRequire1cc7", {})
 
 //# sourceMappingURL=Runner.1fcc916e.js.map

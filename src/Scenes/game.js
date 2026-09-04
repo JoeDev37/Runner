@@ -8,30 +8,46 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-
     const width = this.scale.width;
     const height = this.scale.height;
-    const MC_Color = "0xcba6f7"
+    const MC_Color = "0xcba6f7";
 
-    this.MC = this.add.rectangle(width / 2, height / 1.05, 50, 50, MC_Color);
+    this.MC = this.add.rectangle(
+      width / 2,
+      height - 50,
+      50,
+      50,
+      MC_Color
+    );
+
     this.physics.add.existing(this.MC);
-
-    this.MC.body.setCollideWorldBounds(true, 1, 1);
-
-    this.cursors = this.input.keyboard.createCursorKeys()
-  }
-
-
-  update() {
 
     const body = this.MC.body;
 
+    body.setCollideWorldBounds(true);
+    body.setGravityY(500);
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  update() {
+    const body = this.MC.body;
+
+    // Movement
     if (this.cursors.right.isDown) {
-      this.MC.x += 10;
-      body.updateFromGameObject();
+      body.setVelocityX(400);
     } else if (this.cursors.left.isDown) {
-      this.MC.x -= 10;
-      body.updateFromGameObject();
+      body.setVelocityX(-400);
+    } else {
+      body.setVelocityX(0);
+    }
+
+    // Jump
+    if (
+      Phaser.Input.Keyboard.JustDown(this.cursors.up) &&
+      body.blocked.down
+    ) {
+      body.setVelocityY(-330);
     }
   }
 }
